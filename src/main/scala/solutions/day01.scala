@@ -2,29 +2,36 @@ package aoc
 package day01
 
 import scala.util.chaining.*
-import aoc.utils.lcm
-import aoc.utils.depthFirst
-import aoc.utils.breathFirst
-import aoc.board.Vec
-import aoc.utils.Dijkstra
 
+def getDigits(line: String): Vector[String] =
+  ("""\d""".r).findAllIn(line).toVector
 
-@main def main(): Unit =
-    println("hello".live)
+def getDigetsExtended(line: String): Vector[String] =
+  ("""(?=(one|two|three|four|five|six|seven|eight|nine|\d))""".r).findAllMatchIn(line).map(_.group(1)).toVector
+
+def toDigitString(value: String): String =
+  Map(
+    "one"   -> "1",
+    "two"   -> "2",
+    "three" -> "3",
+    "four"  -> "4",
+    "five"  -> "5",
+    "six"   -> "6",
+    "seven" -> "7",
+    "eight" -> "8",
+    "nine"  -> "9"
+  ).getOrElse(value, value)
+
+object Solution extends App:
+  lazy val one = "day01".live.map(getDigits).map(x => x.head + x.last).map(_.toInt).sum
+  
+  lazy val two = "day01".live
+    .map(getDigetsExtended)
+    .map(x => x.map(toDigitString))
+    .map(x => x.head + x.last)
+    .map(_.toInt)
+    .sum
     
-    val g: Vec => List[Vec] = inp => List(Vec(0, 1), Vec(1, 0)).map(_ + inp)
+  one pipe println
 
-    breathFirst(g, Vec(0, 0)).take(5).toList pipe println
-    depthFirst(g, Vec(0, 0)).take(5).toList pipe println
-
-    val wg = Map(
-        0 -> List((1, 1), (2, 1)),
-        1 -> List((2, 4)),
-        2 -> List((3, 2)),
-        3 -> List()
-    )
-
-    Dijkstra.fromStart(wg, 0) pipe println
-    Dijkstra.fromStartToEnd(wg, 0, 3) pipe println
-    Dijkstra.fromStartToEnd(wg, 0, 6) pipe println
-    Dijkstra.fromStartToEnd(wg, 0, 0) pipe println
+  two pipe println
