@@ -23,9 +23,9 @@ def toDigitString(value: String): String =
   ).getOrElse(value, value)
 
 object Solution extends App:
-  lazy val one = "day01".live.map(getDigits).map(x => x.head + x.last).map(_.toInt).sum
+  lazy val one = "day01.txt".live.map(getDigits).map(x => x.head + x.last).map(_.toInt).sum
   
-  lazy val two = "day01".live
+  lazy val two = "day01.txt".live
     .map(getDigetsExtended)
     .map(x => x.map(toDigitString))
     .map(x => x.head + x.last)
