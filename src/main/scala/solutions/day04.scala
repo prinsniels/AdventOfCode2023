@@ -7,24 +7,15 @@ import scala.annotation.tailrec
 
 case class Card(id: Int, left: List[Int], right: List[Int]):
   val matches = left.intersect(right).length
-
-  val score: Long =
-    matches match
-      case 0 => 0
-      case x => doubleScore(x - 1, 1)
+  val score: Long =  math.pow(2, matches - 1).toInt
 
 object Card:
   def apply(inp: String): Card =
     inp match
       case s"Card $i: $l|$r" => Card(i.strip().toInt, toNumbers(l), toNumbers(r))
 
-  def toNumbers(i: String): List[Int] =
+  private def toNumbers(i: String): List[Int] =
     ("""(\d+)""".r).findAllIn(i).map(_.strip().toInt).toList
-
-@tailrec
-def doubleScore(x: Int, cur: Long): Long =
-  if x == 0 then cur
-  else doubleScore(x - 1, cur * 2)
 
 @tailrec
 def playGame(cur: Int, deck: Map[Int, Card], acc: Map[Int, Long]): Long =
