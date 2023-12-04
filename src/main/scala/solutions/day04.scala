@@ -13,22 +13,6 @@ case class Card(id: Int, left: List[Int], right: List[Int]):
       case 0 => 0
       case x => doubleScore(x - 1, 1)
 
-@tailrec
-def doubleScore(x: Int, cur: Long): Long =
-  if x == 0 then cur
-  else doubleScore(x - 1, cur * 2)
-
-@tailrec
-def playGame(cur: Int, deck: Map[Int, Card], acc: Map[Int, Long]): Long =
-  val totalCards = deck.size 
-  if cur > totalCards then acc.values.sum
-  else {
-    val ins = acc(cur)
-    val won = (0 until deck(cur).matches).map(_ + 1 + cur)
-    val ext = won.filter(_ <= totalCards).map(idx => idx -> (acc(idx) + ins))
-    playGame(cur + 1, deck, acc ++ ext)
-  }
-
 object Card:
   def apply(inp: String): Card =
     inp match
@@ -36,6 +20,22 @@ object Card:
 
   def toNumbers(i: String): List[Int] =
     ("""(\d+)""".r).findAllIn(i).map(_.strip().toInt).toList
+
+@tailrec
+def doubleScore(x: Int, cur: Long): Long =
+  if x == 0 then cur
+  else doubleScore(x - 1, cur * 2)
+
+@tailrec
+def playGame(cur: Int, deck: Map[Int, Card], acc: Map[Int, Long]): Long =
+  val totalCards = deck.size
+  if cur > totalCards then acc.values.sum
+  else {
+    val ins = acc(cur)
+    val won = (0 until deck(cur).matches).map(_ + 1 + cur)
+    val ext = won.filter(_ <= totalCards).map(idx => idx -> (acc(idx) + ins))
+    playGame(cur + 1, deck, acc ++ ext)
+  }
 
 def one(inp: List[String]): Long =
   inp.map(Card.apply).map(_.score).sum
