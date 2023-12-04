@@ -7,7 +7,7 @@ import scala.annotation.tailrec
 
 case class Card(id: Int, left: List[Int], right: List[Int]):
   val matches = left.intersect(right).length
-  val score: Long =  math.pow(2, matches - 1).toInt
+  val score: Long =  math.pow(2, matches - 1).toLong
 
 object Card:
   def apply(inp: String): Card =
