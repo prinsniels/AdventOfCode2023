@@ -35,7 +35,7 @@ def setPower(set: Map[String, Int]): Int =
   set.getOrElse("red", 0) * set.getOrElse("green", 0) * set.getOrElse("blue", 0)
 
 object Solution extends App:
-  def one(inp: List[String]) =
+  def one(inp: String) =
     val specGamePos = game =>
       gamePossible(
         Map(
@@ -46,10 +46,10 @@ object Solution extends App:
         game
       )
 
-    inp.map(Game.parse).filter(specGamePos).collect(_.id).sum
+    inp.split("\n").map(Game.parse).filter(specGamePos).collect(_.id).sum
 
-  def two(inp: List[String]) =
-    inp.map(Game.parse).map(gameMinimum).map(setPower).map(_.toLong).sum
+  def two(inp: String) =
+    inp.split("\n").map(Game.parse).map(gameMinimum).map(setPower).map(_.toLong).sum
 
   one("day02.txt".live) pipe println
   two("day02.txt".live) pipe println

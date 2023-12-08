@@ -2,8 +2,6 @@ package aoc
 package solutions
 
 import scala.util.chaining.*
-import aoc.utils.{breathFirst, takeUntil}
-import aoc.utils.lcm
 import scala.annotation.tailrec
 
 type State = String
@@ -40,24 +38,25 @@ def countStepsUntil(state: State, instrs: LazyList[Instr], trans: Transition, co
   if pred(state) then count
   else countStepsUntil(trans(state, instrs.head), instrs.tail, trans, count + 1, pred)
 
-
-def one(inp: List[String]) =
-  val instructions  = Instr.parse(inp.head)
-  val network       = parseMap(inp.drop(2))
-  val trans         = transitions(network)
+def one(inp: String) =
+  val inpL         = inp.split("\n\n")
+  val instructions = Instr.parse(inpL.head)
+  val network      = parseMap(inpL.tail.head.split("\n").toList)
+  val trans        = transitions(network)
 
   countStepsUntil("AAA", instructions, trans, 0, _ == "ZZZ") pipe println
 
-def two(inp: List[String]) =
-  val instructions  = Instr.parse(inp.head)
-  val network       = parseMap(inp.drop(2))
-  val trans         = transitions(network)
+def two(inp: String) =
+  val inpL         = inp.split("\n\n")
+  val instructions = Instr.parse(inpL.head)
+  val network      = parseMap(inpL.tail.head.split("\n").toList)
+  val trans        = transitions(network)
 
   val starts: Set[State] = network.keySet.filter(_.endsWith("A"))
 
   def lcm(a: Long, b: Long): Long =
     a * b / gcd(a, b)
-  
+
   def gcd(a: Long, b: Long): Long =
     if b == 0 then a else gcd(b, a % b)
 
@@ -68,4 +67,3 @@ def two(inp: List[String]) =
 object Solution extends App:
   one("day08.txt".live)
   two("day08.txt".live)
-

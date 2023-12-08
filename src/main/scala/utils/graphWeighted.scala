@@ -1,6 +1,6 @@
 package aoc
 package utils
-
+package  WeightedGraph
 import scala.collection.mutable.PriorityQueue
 
 type Graph[A] = A => List[(A, Int)]

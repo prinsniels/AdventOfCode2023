@@ -30,7 +30,8 @@ object Card:
     inp match
       case s"$h $s" => Card(h, s.toLong)
 
-def one(inp: List[String]) =
+def one(inp: String) =
+  val inpList = inp.split("\n").toList
   val worth = "AKQJT987654321".zipWithIndex.toMap
 
   def compare(l: Card, r: Card): Boolean =
@@ -43,14 +44,15 @@ def one(inp: List[String]) =
         case None           => false
         case Some((lc, rc)) => worth(lc) > worth(rc)
 
-  inp
+  inpList
     .map(Card.parse)                  // parse
     .sortWith(compare)                // sort with the comparing function
     .zipWithIndex                     // add a rank
     .map((c, s) => c.bid * (s + 1))   // calculate the score
     .sum pipe println                 // sum and output
 
-def two(inp: List[String]) =
+def two(inp: String) =
+  val inpList = inp.split("\n").toList
   val worth = "AKQT987654321J".zipWithIndex.toMap
 
   def compare(l: Card, r: Card): Boolean =
@@ -63,7 +65,7 @@ def two(inp: List[String]) =
         case None           => false
         case Some((lc, rc)) => worth(lc) > worth(rc)
 
-  inp
+  inpList
     .map(Card.parse)                    // parse
     .sortWith(compare)                  // sort with the comparing function
     .zipWithIndex                       // add a rank

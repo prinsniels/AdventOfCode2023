@@ -23,13 +23,13 @@ def surrounding(v: Vec): IndexedSeq[Vec] =
     if (x, y) != (0, 0)
   } yield (v + Vec(x, y))
 
-def one(inp: List[String]) =
-  val scope = getNonValues(inp).flatMap((_, p) => surrounding(p)).toSet
-  getValues(inp).filter((s, vs) => vs.exists(scope)).map(_._1).sum
+def one(inp: String) =
+  val scope = getNonValues(inp.split("\n").toList).flatMap((_, p) => surrounding(p)).toSet
+  getValues(inp.split("\n").toList).filter((s, vs) => vs.exists(scope)).map(_._1).sum
 
-def two(inp: List[String]) =
-  val values: List[(Int, Set[Vec])] = getValues(inp)
-  val gears: List[Vec]              = getNonValues(inp).filter(v => v._1 == "*").map(_._2)
+def two(inp: String) =
+  val values: List[(Int, Set[Vec])] = getValues(inp.split("\n").toList)
+  val gears: List[Vec]              = getNonValues(inp.split("\n").toList).filter(v => v._1 == "*").map(_._2)
   val related: Vec => List[Int] = g => values.filter((v, ls) => surrounding(g).exists(ls)).map(_._1)
 
   gears

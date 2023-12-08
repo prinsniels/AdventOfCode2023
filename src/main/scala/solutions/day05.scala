@@ -79,15 +79,17 @@ extension (b: BG)
       case BG.Node(bgs)     => bgs.flatMap(_.bags())
       case b @ BG.Bag(s, e) => List(b)
 
-def one(inp: List[String]): Unit =
-  val sds = ("""(\d+)""".r).findAllMatchIn(inp.head).map(m => m.group(1).toLong)
-  val alm = Parsers.almanac(inp.tail)
+def one(inp: String): Unit =
+  val inpList = inp.split("\n").toList
+  val sds = ("""(\d+)""".r).findAllMatchIn(inpList.head).map(m => m.group(1).toLong)
+  val alm = Parsers.almanac(inpList.tail)
 
   sds.map(s => alm.foldLeft(s) { case (v, f) => f.eval(v) }).min pipe println
 
-def two(inp: List[String]): Unit =
-  val bgs = Parsers.bags(inp.head)
-  val alm = Parsers.almanac(inp.tail)
+def two(inp: String): Unit =
+  val inpList = inp.split("\n").toList
+  val bgs = Parsers.bags(inpList.head)
+  val alm = Parsers.almanac(inpList.tail)
 
   def processBag(bg: BG, alm: List[Func]): Long =
     alm
@@ -106,7 +108,5 @@ def two(inp: List[String]): Unit =
   bgs.map(b => processBag(b, alm)).min pipe println
 
 @main def main() =
-  val inp = "day05.txt".live
-
-  one(inp)
-  two(inp)
+  one("day05.txt".live)
+  two("day05.txt".live)

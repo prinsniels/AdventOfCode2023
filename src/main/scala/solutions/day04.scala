@@ -28,15 +28,14 @@ def playGame(cur: Int, deck: Map[Int, Card], acc: Map[Int, Long]): Long =
     playGame(cur + 1, deck, acc ++ ext)
   }
 
-def one(inp: List[String]): Long =
-  inp.map(Card.apply).map(_.score).sum
+def one(inp: String): Long =
+  inp.split("\n").map(Card.apply).map(_.score).sum
 
-def two(inp: List[String]): Long =
-  val deck = inp.map(Card.apply).map(c => c.id -> c).toMap
+def two(inp: String): Long =
+  val deck = inp.split("\n").map(Card.apply).map(c => c.id -> c).toMap
   val acc  = (1 to deck.keySet.max).map(_ -> 1L).toMap
   playGame(1, deck, acc)
 
 object Solution extends App:
-
   one("day04.txt".live) pipe println
   two("day04.txt".live) pipe println
