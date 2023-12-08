@@ -1,5 +1,6 @@
 package aoc
 package solutions
+package day08
 
 import scala.util.chaining.*
 import scala.annotation.tailrec
@@ -30,8 +31,8 @@ def parseMap(inp: List[String]): Map[String, Vector[String]] =
 def transitions(network: Map[String, Vector[String]]): Transition =
   (n, d) =>
     d match
-      case aoc.solutions.Instr.GoLeft  => network(n)(0)
-      case aoc.solutions.Instr.GoRight => network(n)(1)
+      case Instr.GoLeft  => network(n)(0)
+      case Instr.GoRight => network(n)(1)
 
 @tailrec
 def countStepsUntil(state: State, instrs: LazyList[Instr], trans: Transition, count: Int, pred: State => Boolean): Int =

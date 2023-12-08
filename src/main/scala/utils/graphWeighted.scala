@@ -55,17 +55,6 @@ object Dijkstra extends ShortestPath with ShortestPathToAll:
     }
 
   /** Simple dijkstra solver
-    * @param g
-    *   graph
-    * @param q
-    *   queue
-    * @param v
-    *   visited
-    * @param d
-    *   distance
-    * @param p
-    *   parent
-    * @return
     */
   private def solver[T](
       g: T => List[(T, Int)],
