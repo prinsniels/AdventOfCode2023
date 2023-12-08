@@ -8,7 +8,6 @@ import scala.annotation.tailrec
 
 type State = String
 
-// The trans
 type Transition = (State, Instr) => State
 
 enum Instr:
