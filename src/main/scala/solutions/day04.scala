@@ -2,7 +2,7 @@ package aoc
 package day04
 
 import scala.util.chaining.*
-import aoc.board.Vec
+import aoc.utils.board.Vec
 import scala.annotation.tailrec
 
 case class Card(id: Int, left: List[Int], right: List[Int]):

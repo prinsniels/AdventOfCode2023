@@ -2,7 +2,7 @@ package aoc
 package day03
 
 import scala.util.chaining.*
-import aoc.board.Vec
+import aoc.utils.board.Vec
 
 def getValues(inp: List[String]): List[(Int, Set[Vec])] =
   for {

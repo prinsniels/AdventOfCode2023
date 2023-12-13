@@ -1,6 +1,6 @@
 package aoc
 package solutions
-package day11b
+package day11
 
 import scala.util.chaining.*
 

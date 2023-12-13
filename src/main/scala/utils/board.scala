@@ -1,4 +1,5 @@
 package aoc
+package utils
 package board
 
 import scala.util.chaining.*
